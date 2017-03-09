@@ -2,48 +2,36 @@
 
 <h1>Products</h1>
 <table>
+<style>
+    .demo-list-three {
+        width: 650px;
+    }
 
+</style>
     <% @products.each do |product| %>
-
     <tr class="<%= cycle('list_line_odd', 'list_line_even') %>">
 
-        <td>
+        <ul class="demo-list-three mdl-list">
+            <li class="mdl-list__item mdl-list__item--three-line">
+                <span class="mdl-list__item-primary-content">
+                    <i class="material-icons mdl-list__item-avatar"><%= product.title %></i>
+                    <span>Bryan Cranston</span>
+                    <span class="mdl-list__item-text-body">
+                        <%= truncate(strip_tags(product.description),length: 80) %>
+                    </span>
+                </span>
+                
+                <span class="mdl-list__item-secondary-content">
+                    <%= link_to 'Show', product %><br/>
+                    <%= link_to 'Edit', edit_product_path(product) %><br/>
+                    <%= link_to 'Destroy', product, method: :delete,
+                          data: { confirm: 'Are you sure?' } %>
+                </span>
+                <%= image_tag(product.image_url, class: 'list_image') %>
+            </li>
+        </tr>
+        <% end %>
+    </table>
+    <br/>
 
-            <%= image_tag(product.image_url, class: 'list_image') %>
-
-        </td>
-
-        <td class="list_description">
-
-            <dl>
-
-                <dt><%= product.title %></dt>
-
-                <dd><%= truncate(strip_tags(product.description),
-
-               length: 80) %></dd>
-
-            </dl>
-
-        </td>
-
-        <td class="list_actions">
-
-            <%= link_to 'Show', product %><br/>
-
-            <%= link_to 'Edit', edit_product_path(product) %><br/>
-
-            <%= link_to 'Destroy', product, method: :delete,
-
-                  data: { confirm: 'Are you sure?' } %>
-
-        </td>
-
-    </tr>
-
-    <% end %>
-
-</table>
-<br/>
-
-<%= link_to 'New product', new_product_path %>
+    <%= link_to 'New product', new_product_path %>
