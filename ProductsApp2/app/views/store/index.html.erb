@@ -1,34 +1,42 @@
 <p id="notice"><%= notice %></p>
-<h1>Your Pragmatic Catalog</h1>
-<% @products.each do |product| %>
-<div class="entry">
-    <% cache @products do %>
 
-    <% @products.each do |product| %>
+<div class="panel panel-primary">
+    <div class="panel-heading">Your Pragmatic Catalog</div>
+    <div class="panel-body">
+        <div class="row">
+        <% @products.each do |product| %>
+        <div class="">
+            <% cache @products do %>
 
-    <% cache product do %>
+            <% @products.each do |product| %>
 
-    <div class="entry">
+            <% cache product do %>
 
-        <%= image_tag(product.image_url) %>
+            <div class="col-md-12">
+                <h3 style="padding-left:15px"><%= product.title %></h3>
+                <div class="col-md-2">
+                <%= image_tag(product.image_url) %>
+                </div>
+                <div class="col-md-10">
+                    <div>
+                    <%= sanitize(product.description) %>
+                    </div>
+                    <div class="col-md-12">
+                        <span class="col-md-2 btn btn-default"><%= number_to_currency(product.price) %></span>
+                        <%= button_to 'Add to Cart', line_items_path(product_id: product), :class =>'col-md-2 btn btn-primary col-md-offset-1' %>
+                    </div>
+                </div>
 
-        <h3><%= product.title %></h3>
+            </div>
 
-        <%= sanitize(product.description) %>
+            <% end %>
 
-        <div class="price_line">
+            <% end %>
 
-            <span class="price"><%= number_to_currency(product.price) %></span>
-
+            <% end %>
         </div>
 
+        <% end %>
+        </div>
     </div>
-
-    <% end %>
-
-    <% end %>
-
-    <% end %>
 </div>
-
-<% end %>
