@@ -29,7 +29,7 @@ class ProductsController < ApplicationController
     respond_to do |format|
       if @product.save
         format.html { redirect_to @product, notice: 'Product was successfully created.' }
-format.json { render :show, status: :created, location: @product }
+        format.json { render :show, status: :created, location: @product }
       else
         format.html { render :new }
         format.json { render json: @product.errors, status: :unprocessable_entity }
@@ -44,6 +44,10 @@ format.json { render :show, status: :created, location: @product }
       if @product.update(product_params)
         format.html { redirect_to @product,notice: 'Product was successfully updated.' }
         format.json { render :show, status: :ok, location: @product }
+
+        @products = Product.all
+        ActionCable.server.broadcast 'products', html: render_to_string('store/index', layout: false)
+        
       else
         format.html { render :edit }
         format.json { render json: @product.errors,status: :unprocessable_entity }
