@@ -1,7 +1,9 @@
 <p id="notice"><%= notice %></p>
+<%= render @cart %>
 <h2>Your Cart</h2>
 
 <table>
+    <%= render(@cart) %>
     <% @cart.line_items.each do |item| %>
     <tr>
         <td><%= item.quantity %>&times;</td>

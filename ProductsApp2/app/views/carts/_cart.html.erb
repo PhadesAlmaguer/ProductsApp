@@ -1,0 +1,17 @@
+<div id="cart" class="col-md-3">
+    <div class="panel panel-primary">
+        <p id="notice"><%= notice %></p>
+        <div class="panel-heading">
+            <div class="panel-title">Your Cart
+            </div>
+        </div>
+        <div class="panel-body">
+            <%= render(cart.line_items) %>
+            <p class="total_line" style="">
+                <span class="col-md-9">Total</span>
+                <span class="col-md-3"><%= number_to_currency(cart.total_price) %></span>
+            </p>
+            <%= button_to 'Empty cart', cart, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </div>
+    </div>
+</div>
